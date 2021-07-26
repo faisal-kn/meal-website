@@ -1,16 +1,13 @@
 import React from 'react';
 
 import './MealItemForm.css';
-import UseButton from '../UI/UseButton';
 
 const MealItemForm = () => {
   return (
-    <form className="input">
+    <form className="form input">
       <label htmlFor="items">Amount</label>
       <input type="number" id="items" />
-      <div>
-        <UseButton typeOf="submit" value="+Add" ></UseButton>
-      </div>
+      <button type="submit">+Add</button>
     </form>
   );
 };
