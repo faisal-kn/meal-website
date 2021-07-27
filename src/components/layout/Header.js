@@ -4,8 +4,15 @@ import './Header.css';
 // import Button from '../UI/Button';
 import mealsImage from '../../assets/meals.jpg';
 import CartIcon from '../cart/CartIcon';
+import CartContext from '../../store/cart-context';
 
 const Header = (props) => {
+  //This gives context values . The header component will be reevaluated by react whenever context changes.
+  const ctx = React.useContext(CartContext);
+  const numberCartItems = ctx.items.reduce(
+    (curNum, item) => curNum + item.amount,
+    0
+  );
   const buttonHandler = () => {
     console.log(2);
     props.onModalShow();
@@ -20,7 +27,7 @@ const Header = (props) => {
             <CartIcon />
           </span>
           Your Cart
-          <span className="badge">0</span>
+          <span className="badge">{numberCartItems}</span>
         </button>
       </div>
       <div className="main-image">
