@@ -13,8 +13,8 @@ const Header = (props) => {
     (curNum, item) => curNum + item.amount,
     0
   );
+
   const buttonHandler = () => {
-    console.log(2);
     props.onModalShow();
   };
 
