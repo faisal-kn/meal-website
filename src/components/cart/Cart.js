@@ -8,9 +8,13 @@ import CartItem from './CartItem';
 const Cart = (props) => {
   const cartCtx = React.useContext(cartContext);
 
-  const removeHandler = (id) => {};
+  const removeHandler = (id) => {
+    cartCtx.removeItem(id);
+  };
 
-  const addHandler = (item) => {};
+  const addHandler = (item) => {
+    cartCtx.addItems({ ...item, amount: 1 });
+  };
 
   const cartItems = (
     <ul>

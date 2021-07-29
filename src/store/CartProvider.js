@@ -16,7 +16,6 @@ const cartReducer = (state, action) => {
     let updatedItems;
     if (selectedItemIndex !== -1) {
       const selectedItem = state.items[selectedItemIndex];
-      console.log(selectedItem);
       const updatedItem = {
         ...selectedItem,
         amount: selectedItem.amount + action.item.amount,
@@ -26,7 +25,26 @@ const cartReducer = (state, action) => {
     } else {
       updatedItems = state.items.concat(action.item);
     }
+    return { items: updatedItems, totalAmount: updatedAmount };
+  }
 
+  if (action.type === 'REMOVE') {
+    const selectedItemIndex = state.items.findIndex(
+      (item) => item.id === action.id
+    );
+    let updatedItems;
+    const selectedItem = state.items[selectedItemIndex];
+    if (selectedItem.amount === 1) {
+      updatedItems = state.items.filter((item) => item.id !== action.id);
+    } else {
+      const updatedItem = {
+        ...selectedItem,
+        amount: selectedItem.amount - 1,
+      };
+      updatedItems = [...state.items];
+      updatedItems[selectedItemIndex] = updatedItem;
+    }
+    const updatedAmount = state.totalAmount - selectedItem.price;
     return { items: updatedItems, totalAmount: updatedAmount };
   }
 };
@@ -41,7 +59,9 @@ const CartProvider = (props) => {
     dispatchCartState({ type: 'ADD', item: item });
   };
 
-  const removeItemHandler = (id) => {};
+  const removeItemHandler = (id) => {
+    dispatchCartState({ type: 'REMOVE', id: id });
+  };
   const contextHelper = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
