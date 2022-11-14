@@ -5,8 +5,9 @@ import './Header.css';
 import mealsImage from '../../assets/meals.jpg';
 import CartIcon from '../cart/CartIcon';
 import CartContext from '../../store/cart-context';
+import { Link } from 'react-router-dom';
 
-const Header = (props) => {
+const Header = () => {
   //This gives context values . The header component will be reevaluated by react whenever context changes.
   const ctx = React.useContext(CartContext);
   const numberCartItems = ctx.items.reduce(
@@ -14,21 +15,17 @@ const Header = (props) => {
     0
   );
 
-  const buttonHandler = () => {
-    props.onModalShow();
-  };
-
   return (
     <>
       <div className="header">
         <h1>React Meals</h1>
-        <button className="button" onClick={buttonHandler}>
+        <Link to="/cart" className="button">
           <span className="icon">
             <CartIcon />
           </span>
           Your Cart
           <span className="badge">{numberCartItems}</span>
-        </button>
+        </Link>
       </div>
       <div className="main-image">
         <img src={mealsImage} alt="A pizza"></img>
